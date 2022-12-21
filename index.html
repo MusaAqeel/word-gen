@@ -28,14 +28,8 @@
   <p class="phonetic">Loading...</p>
   <p class="definition">Loading...</p>
   <script>
-    function getRandomWord() {
-      const words = ['hello', 'goodbye', 'love', 'happiness'];
-      return words[Math.floor(Math.random() * words.length)];
-    }
-
-    function fetchWordDefinition() {
-      const word = getRandomWord();
-      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+    function fetchRandomWordDefinition() {
+      fetch('https://api.dictionaryapi.dev/api/v2/random/en')
         .then(response => response.json())
         .then(data => {
           document.querySelector('.word').innerHTML = data[0].word;
@@ -44,7 +38,7 @@
         });
     }
 
-    fetchWordDefinition();
+    fetchRandomWordDefinition();
   </script>
 </body>
 </html>
