@@ -7,6 +7,10 @@
       font-family: 'Cool Font', sans-serif;
       color: #333;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
     .word {
       font-size: 36px;
@@ -33,12 +37,11 @@
       }
     }
     @media (max-width: 500px) {
-  body {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
+      body {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -47,11 +50,15 @@
   <p class="definition">Loading...</p>
   <script>
     function fetchRandomWordDefinition() {
-      fetch('https://random-word-api.herokuapp.com/word')
+      fetch('https://random-words-api.vercel.app/word', {
+        method: 'GET'
+      })
         .then(response => response.json())
         .then(data => {
           const word = data.word;
-          fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+          fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, {
+            method: 'GET'
+          })
             .then(response => response.json())
             .then(data => {
               document.querySelector('.word').innerHTML = data[0].word;
