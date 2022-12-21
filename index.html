@@ -28,13 +28,23 @@
   <p class="phonetic">Loading...</p>
   <p class="definition">Loading...</p>
   <script>
-    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/hello')
-      .then(response => response.json())
-      .then(data => {
-        document.querySelector('.word').innerHTML = data[0].word;
-        document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
-        document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
-      });
+    function getRandomWord() {
+      const words = ['hello', 'goodbye', 'love', 'happiness'];
+      return words[Math.floor(Math.random() * words.length)];
+    }
+
+    function fetchWordDefinition() {
+      const word = getRandomWord();
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(response => response.json())
+        .then(data => {
+          document.querySelector('.word').innerHTML = data[0].word;
+          document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
+          document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
+        });
+    }
+
+    fetchWordDefinition();
   </script>
 </body>
 </html>
