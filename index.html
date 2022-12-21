@@ -48,7 +48,7 @@
           fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
             .then(response => response.json())
             .then(data => {
-              // inner text of the #typewriter element with the word
+              // Update the inner text of the #typewriter element with the word
               document.querySelector('#typewriter').innerText = data[0].word;
               document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
               document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
@@ -58,32 +58,38 @@
 
     window.addEventListener('load', fetchRandomWordDefinition);
 
-    // writeLoop function here
-    const el = document.getElementById("typewriter");
+    // Define the sleep function using setTimeout
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    let sleepTime = 100;
+// Add the writeLoop function here
+const el = document.getElementById("typewriter");
 
-    const writeLoop = async () => {
-      while (true) {
-        let curWord = document.querySelector('#typewriter').innerText;
+let sleepTime = 100;
 
-        for (let i = 0; i < curWord.length; i++) {
-          el.innerText = curWord.substring(0, i + 1);
-          await sleep(sleepTime);
-        }
+const writeLoop = async () => {
+  while (true) {
+    let curWord = document.querySelector('#typewriter').innerText;
 
-        await sleep(sleepTime * 10);
+    for (let i = 0; i < curWord.length; i++) {
+      el.innerText = curWord.substring(0, i + 1);
+      await sleep(sleepTime);
+    }
 
-        for (let i = curWord.length; i > 0; i--) {
-          el.innerText = curWord.substring(0, i - 1);
-          await sleep(sleepTime);
-        }
+    await sleep(sleepTime * 10);
 
-        await sleep(sleepTime * 5);
-      }
-    };
+    for (let i = curWord.length; i > 0; i--) {
+      el.innerText = curWord.substring(0, i - 1);
+      await sleep(sleepTime);
+    }
 
-    writeLoop();
-  </script>
+    await sleep(sleepTime * 5);
+  }
+};
+
+writeLoop();
+      </script>
 </body>
 </html>
+
