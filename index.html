@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Definition</title>
+  <style>
+    body {
+      font-family: 'Cool Font', sans-serif;
+      color: #333;
+      text-align: center;
+    }
+    .word {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .phonetic {
+      font-size: 18px;
+      font-style: italic;
+      margin-top: 10px;
+    }
+    .definition {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="word">Loading...</h1>
+  <p class="phonetic">Loading...</p>
+  <p class="definition">Loading...</p>
+  <script>
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/hello')
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector('.word').innerHTML = data[0].word;
+        document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
+        document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
+      });
+  </script>
+</body>
+</html>
