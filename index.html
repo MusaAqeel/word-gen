@@ -35,7 +35,6 @@
   </style>
 </head>
 <body>
-  <div id="typewriter"></div>
   <h1 class="word">Loading...</h1>
   <p class="phonetic">Loading...</p>
   <p class="definition">Loading...</p>
@@ -48,8 +47,7 @@
           fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
             .then(response => response.json())
             .then(data => {
-              // Update the inner text of the #typewriter element with the word
-              document.querySelector('#typewriter').innerText = data[0].word;
+              document.querySelector('.word').innerHTML = data[0].word;
               document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
               document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
             });
@@ -57,39 +55,6 @@
     }
 
     window.addEventListener('load', fetchRandomWordDefinition);
-
-    // Define the sleep function using setTimeout
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// Add the writeLoop function here
-const el = document.getElementById("typewriter");
-
-let sleepTime = 100;
-
-const writeLoop = async () => {
-  while (true) {
-    let curWord = document.querySelector('#typewriter').innerText;
-
-    for (let i = 0; i < curWord.length; i++) {
-      el.innerText = curWord.substring(0, i + 1);
-      await sleep(sleepTime);
-    }
-
-    await sleep(sleepTime * 10);
-
-    for (let i = curWord.length; i > 0; i--) {
-      el.innerText = curWord.substring(0, i - 1);
-      await sleep(sleepTime);
-    }
-
-    await sleep(sleepTime * 5);
-  }
-};
-
-writeLoop();
-      </script>
+  </script>
 </body>
 </html>
-
