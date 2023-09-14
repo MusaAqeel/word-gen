@@ -2,59 +2,12 @@
 <html>
 <head>
   <title>Word Definition</title>
-  <style>
-    body {
-      font-family: 'Cool Font', sans-serif;
-      color: #333;
-      text-align: center;
-    }
-    .word {
-      font-size: 36px;
-      font-weight: bold;
-      animation: fadeIn 1s;
-    }
-    .phonetic {
-      font-size: 18px;
-      font-style: italic;
-      margin-top: 10px;
-      animation: fadeIn 1s;
-    }
-    .definition {
-      font-size: 18px;
-      margin-top: 10px;
-      animation: fadeIn 1s;
-    }
-    @keyframes fadeIn {
-      from {
-        transform: translateX(-100%);
-      }
-      to {
-        transform: translateX(0);
-      }
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <h1 class="word">Loading...</h1>
   <p class="phonetic">Loading...</p>
   <p class="definition">Loading...</p>
-  <script>
-    function fetchRandomWordDefinition() {
-      fetch('https://random-word-api.herokuapp.com/word')
-        .then(response => response.json())
-        .then(data => {
-          const word = data[0];
-          fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-            .then(response => response.json())
-            .then(data => {
-              document.querySelector('.word').innerHTML = data[0].word;
-              document.querySelector('.phonetic').innerHTML = data[0].phonetics[0].text;
-              document.querySelector('.definition').innerHTML = data[0].meanings[0].definitions[0].definition;
-            });
-        });
-    }
-
-    window.addEventListener('load', fetchRandomWordDefinition);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
