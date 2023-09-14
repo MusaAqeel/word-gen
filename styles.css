@@ -6,6 +6,7 @@ body {
   
   .word {
     font-size: 36px;
+    font-style: italic;
     font-weight: bold;
     animation: fadeIn 1s;
   }
@@ -19,6 +20,7 @@ body {
   
   .definition {
     font-size: 18px;
+    font-style: italic;
     margin-top: 10px;
     animation: fadeIn 1s;
   }
